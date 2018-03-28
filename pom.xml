@@ -35,10 +35,11 @@
 		</dependency>
 		<dependency>
 			<groupId>com.volvo.jvs</groupId>
-			<artifactId>jvs-support-maven-bom-ibmmq</artifactId>
+			<artifactId>jvs-support-maven-bom-ibmmq</artifactId>			
 			<version>5.1.0</version>
 			<type>pom</type>
 		</dependency>
+
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
