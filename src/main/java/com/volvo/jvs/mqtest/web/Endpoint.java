@@ -1,5 +1,7 @@
 package com.volvo.jvs.mqtest.web;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
@@ -12,7 +14,7 @@ import javax.ws.rs.core.MediaType;
 import com.volvo.jvs.mqtest.beans.Result;
 import com.volvo.jvs.mqtest.service.JmsService;
 
-@Path("/jms")
+@Path("jms")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class Endpoint {
@@ -24,6 +26,12 @@ public class Endpoint {
 	public Result send(@QueryParam("message") @NotNull Result result) {
 		getJmsService().sendMessage(result.getTest());
 		return result;
+	}
+	
+	@GET
+	@Path("get")
+	public List<Result> get() {
+		return getJmsService().getMessage();
 	}
 	
 	public JmsService getJmsService() {
