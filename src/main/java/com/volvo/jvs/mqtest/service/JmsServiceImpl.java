@@ -1,7 +1,7 @@
 package com.volvo.jvs.mqtest.service;
 
 import java.util.ArrayList;
-import java.util.Enumeration;
+import java.util.Date;
 import java.util.List;
 
 import javax.jms.Connection;
@@ -175,6 +175,11 @@ public class JmsServiceImpl implements JmsService{
 		        result.setTest(tx.getText());
 		        list.add(result);	            
 	            System.out.println(tx); 
+	            // date and time from client machine
+	            System.out.println(new Date(tx.getJMSTimestamp()));
+	            // date and time from mq server
+	            System.out.println(tx.getStringProperty("JMS_IBM_PutDate"));
+	            System.out.println(tx.getStringProperty("JMS_IBM_PutTime"));
 	         } 
 	      }
 	      
