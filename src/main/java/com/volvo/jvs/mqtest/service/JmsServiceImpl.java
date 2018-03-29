@@ -1,8 +1,5 @@
 package com.volvo.jvs.mqtest.service;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-
 import javax.jms.Connection;
 import javax.jms.Destination;
 import javax.jms.JMSException;
@@ -10,11 +7,11 @@ import javax.jms.MessageProducer;
 import javax.jms.Session;
 import javax.jms.TextMessage;
 
+import org.springframework.stereotype.Component;
+
 import com.ibm.msg.client.jms.JmsConnectionFactory;
 import com.ibm.msg.client.jms.JmsFactoryFactory;
 import com.ibm.msg.client.wmq.WMQConstants;
-
-import org.springframework.stereotype.Component;
 
 
 @Component
@@ -24,7 +21,7 @@ public class JmsServiceImpl implements JmsService{
 	  private static int port = 1437;
 	  private static String channel = "ADTJAVA.SRV01";
 	  private static String user = "a250868";
-	  //private static String password = null;
+	  private static String password = null;
 	  private static String queueManagerName = "EOWYN_A3";
 	  private static String destinationName = "ADTJAVA.POS.PARTS.OUT";
 	  private static boolean isTopic = false;
@@ -56,7 +53,7 @@ public class JmsServiceImpl implements JmsService{
 	      cf.setStringProperty(WMQConstants.WMQ_QUEUE_MANAGER, queueManagerName);
 	      if (user != null) {
 	          cf.setStringProperty(WMQConstants.USERID, user);
-	          //cf.setStringProperty(WMQConstants.PASSWORD, password);
+	          cf.setStringProperty(WMQConstants.PASSWORD, password);
 	          cf.setBooleanProperty(WMQConstants.USER_AUTHENTICATION_MQCSP, true);
 	        }
 
@@ -73,25 +70,14 @@ public class JmsServiceImpl implements JmsService{
 
 	      // Start the connection
 	      connection.start();
-	      String line;
-	      BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-	     // do {
-	        //System.out.print("Enter some text to be sent in a message <ENTER to finish>:");
-	        //System.out.flush();
-	        //line = in.readLine();
-	        //if (line!=null){
-	        //  if(line.trim().length()==0){
-	        //    break;
-	        //  }
-	            TextMessage messageToSend = session.createTextMessage(message);
-	            // And, send the message
-	            producer.send(messageToSend);
-	            System.out.println("Sent message:\n" + messageToSend);
-	         // }
-	      //  }
-	   //   while (line != null);
-
-	      //recordSuccess();
+	      
+	      // Create message
+	      TextMessage messageToSend = session.createTextMessage(message);
+	      
+	      // And, send the message	      
+	      producer.send(messageToSend);
+	      System.out.println("Sent message:\n" + messageToSend);
+	     
 	    }
 	    catch (JMSException jmsex) {
 	      //recordFailure(jmsex);
