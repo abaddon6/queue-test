@@ -1,6 +1,11 @@
 target/
 !.mvn/wrapper/maven-wrapper.jar
 
+## Eclipse Workspace ##
+.metadata
+Servers
+RemoteSystemsTempFiles
+
 ### MQ ###
 mqjms.*
 FFDC
